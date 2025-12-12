@@ -18,4 +18,4 @@ function loadPage(url) {
         "เกิดข้อผิดพลาดในการโหลดเนื้อหา";
     });
 }
-loadPage("../Admin/Home/Home.jsp");
+loadPage("../Admin/page/Home/Home.jsp");

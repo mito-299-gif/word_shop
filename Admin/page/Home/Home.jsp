@@ -123,7 +123,7 @@
 
 <div class="box_too_box">
   <div class="box1">
-    <form id="productForm">
+    <%-- <form id="productForm">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required /><br /><br />
 
@@ -137,18 +137,14 @@
       /><br /><br />
 
       <button type="submit" id="submitBtn">Add Product</button>
-    </form>
+    </form> --%>
 
     <h2>Products</h2>
     <button onclick="loadProducts()">Refresh</button>
 
     <div class="product-list" id="products"></div>
-    <div id = "name"></div>
-     <div id = "image"></div>
-      <div id = "delete"></div>
-       <div id = "edit"></div>
   </div>
   <div class="box2"> qwsdad </div>
 </div>
 
-<script src="../../js/select.js"></script>
+

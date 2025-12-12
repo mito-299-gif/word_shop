@@ -48,12 +48,12 @@
       <div id="sidebar" class="sidebar">
         <ul class="sidebar-nav">
           <li>
-             <a class="nav-link"  onclick="loadPage('../Admin/Home/Home.jsp'); return false;"
+             <a class="nav-link"  onclick="loadPage('../Admin/page/Home/Home.jsp'); return false;"
               ><i class="fas fa-home"></i><span>Home</span></a
             >
           </li>
           <li>
-          <a class="nav-link" onclick="loadPage('../Admin/Products/Products.jsp'); return false;"
+          <a class="nav-link" onclick="loadPage('../Admin/page/Products/Products.jsp'); return false;"
             ><i class="fas fa-cube"></i><span>Apps</span></a>
           </li>
           <li>
