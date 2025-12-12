@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="./style/style.css" />
     <title>Admin</title>
   </head>
@@ -24,7 +25,7 @@
           </div>
           <div class="past2">
             <h1>POS System</h1>
-          <button onclick="loadProducts()">Refresh</button>
+          <%-- <button onclick="loadProducts()">Refresh</button> --%>
           </div>
         </div>
         <%-- <div class="name_admin">
@@ -96,7 +97,7 @@
             ></a>
           </li>
           <li>
-            <a href="#"
+              <a class="nav-link" onclick="loadPage('../Admin/page/Settings/Settings.html'); return false;"
               ><i class="fas fa-cog"></i><span>Settings</span
               ><i class="fas fa-angle-right arrow"></i
             ></a>

@@ -1,4 +1,4 @@
-const apiUrl = "../../server/api.jsp";
+const apiUrl = "https://api.whiteee.store/api/ps";
 
 async function loadProducts() {
   try {
