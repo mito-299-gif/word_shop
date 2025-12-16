@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Product</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      form {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+      }
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      #currentImage {
+        margin-bottom: 20px;
+      }
+      #currentImage img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      #submitBtn {
+        background-color: #4caf50;
+        color: white;
+      }
+      #submitBtn:hover {
+        background-color: #45a049;
+      }
+      button[type="button"] {
+        background-color: #f44336;
+        color: white;
+      }
+      button[type="button"]:hover {
+        background-color: #da190b;
+      }
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      .current-image {
+        text-align: center;
+      }
+      .img {
+        width: 200px;
+        height: 200px;
+        display: none;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 23px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Edit Product</h1>
+    <form id="editForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="image">New Image (optional):</label>
+      <input type="file" id="image" name="img" accept="image/*" /><br /><br />
+
+      <img class="img" id="imagePreview" alt="Image Preview" /><br /><br />
+
+      <div class="current-image" id="currentImage"></div>
+      <br />
+
+      <button type="submit" id="submitBtn">Update Product</button>
+      <button type="button" onclick="goBack()">Cancel</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("image")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          const preview = document.getElementById("imagePreview");
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+              preview.onerror = function () {
+                preview.src = "";
+                preview.style.display = "none";
+              };
+              preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            preview.src = "";
+            preview.style.display = "none";
+          }
+        });
+
+      const apiUrl = "http://localhost:3000/api/ps";
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("id");
+
+      if (!productId) {
+        alert("No product ID provided");
+        window.location.href = "Products.jsp";
+      }
+
+      async function loadProduct() {
+        try {
+          const res = await fetch(`${apiUrl}/${productId}`);
+          if (!res.ok) throw new Error("Product not found");
+          const product = await res.json();
+
+          document.getElementById("name").value = product.name;
+          if (product.img) {
+            document.getElementById("currentImage").innerHTML = `
+              <p>Current Image:</p>
+              <img src="${product.img}" width="200" />
+            `;
+          }
+        } catch (err) {
+          console.error("Load product error:", err);
+          alert("Error loading product");
+          window.location.href = "Products.jsp";
+        }
+      }
+
+      // Update product
+      document
+        .getElementById("editForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById("submitBtn");
+          const name = document.getElementById("name").value;
+          const file = document.getElementById("image").files[0];
+
+          // Disable button and show loading
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Updating...";
+
+          try {
+            let options;
+            if (file) {
+              const formData = new FormData();
+              formData.append("name", name);
+              formData.append("img", file);
+              options = { method: "PUT", body: formData };
+            } else {
+              options = {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name }),
+              };
+            }
+
+            const res = await fetch(`${apiUrl}/${productId}`, options);
+            const data = await res.json();
+            alert(data.message);
+            window.location.href = "Products.jsp";
+          } catch (err) {
+            console.error("Update product error:", err);
+            alert("Error updating product");
+          } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Update Product";
+          }
+        });
+
+      function goBack() {
+        window.location.href = "Products.jsp";
+      }
+
+      // Load product on page load
+      loadProduct();
+    </script>
+  </body>
+</html>

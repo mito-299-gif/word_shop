@@ -123,21 +123,28 @@
 
 <div class="box_too_box">
   <div class="box1">
-    <%-- <form id="productForm">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required /><br /><br />
+<form id="productForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required /><br /><br />
 
-      <label for="image">Image:</label>
-      <input
-        type="file"
-        id="image"
-        name="img"
-        accept="image/*"
-        required
-      /><br /><br />
+  <label for="image">Image:</label>
+  <input
+    type="file"
+    id="image"
+    name="img"
+    accept="image/*"
+    required
+  /><br /><br />
 
-      <button type="submit" id="submitBtn">Add Product</button>
-    </form> --%>
+  <img
+    id="imagePreview"
+    style="display: none; max-width: 200px; max-height: 200px"
+    alt="Image Preview"
+  /><br /><br />
+
+  <button type="submit" id="submitBtn">Add Product</button>
+</form>
+
 
     <h2>Products</h2>
     <%-- <button onclick="loadProducts()">Refresh</button> --%>
@@ -146,5 +153,3 @@
   </div>
   <div class="box2"> qwsdad </div>
 </div>
-
-

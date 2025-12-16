@@ -54,7 +54,7 @@
             >
           </li>
           <li>
-          <a class="nav-link" onclick="loadPage('../Admin/page/Products/Products.jsp'); return false;"
+          <a class="nav-link" onclick="loadPage('../Admin/page/Products/Products.html'); return false;"
             ><i class="fas fa-cube"></i><span>Apps</span></a>
           </li>
           <li>
@@ -97,7 +97,7 @@
             ></a>
           </li>
           <li>
-              <a class="nav-link" onclick="loadPage('../Admin/page/Settings/Settings.html'); return false;"
+              <a class="nav-link" onclick="loadPage('../Admin/page/Settings/Settings.jsp'); return false;"
               ><i class="fas fa-cog"></i><span>Settings</span
               ><i class="fas fa-angle-right arrow"></i
             ></a>
@@ -123,6 +123,9 @@
         </div>
       </div>
 
+
+      
+
       <div id="main-content" class="main-content">
 
       
@@ -133,5 +136,10 @@
     <script src="../js/navbar.js"></script>
     <script src="../js/select.js"></script>
     <script src="./page/Settings/js/path.js"></script>
+    <script src="./page/Settings/js/productForm.js"></script>
+    <script src="../js/img.js"></script>
+
+
+
   </body>
 </html>

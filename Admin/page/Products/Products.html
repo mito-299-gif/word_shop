@@ -1,0 +1,24 @@
+<form id="productForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required /><br /><br />
+
+  <label for="image">Image:</label>
+  <input
+    type="file"
+    id="image"
+    name="img"
+    accept="image/*"
+    required
+  /><br /><br />
+
+  <img
+    id="imagePreview"
+    src=""
+    alt="Image Preview"
+    style="max-width: 200px; max-height: 200px; display: none"
+  /><br /><br />
+
+  <button type="submit" id="submitBtn">Add Product</button>
+</form>
+
+<script src="../../../js/img.js"></script>

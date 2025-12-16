@@ -22,26 +22,19 @@
 <div class="Settings">
   <div class="add_product">
     <div>
-     <a class="nav-link" onclick="loadPagee('../../../../Word_shop/Admin/page/Settings/page_min/Add_Product.html'); return false;"
+     <a class="nav-link" href="page/Settings/page_min/Products/Products.jsp"
       ><i class="fas fa-shopping-cart"></i>
     </div>
     <div>
       <h1>Add_Product</h1>
     </div>
   </div>
-  <div class="add_product">
-    <div>
-      <i class="fas fa-user-alt"></i>
-    </div>
-    <div>
-      <h1>Add_employee</h1>
-    </div>
-  </div>
+  
 </div>
 
 
 
 <div id="main-contentt" class="main-contentt"></div>
 
-
-
+<script src="./js/path.js"></script>
+<script src="./js/productForm.js"></script>
