@@ -140,7 +140,7 @@
     </form> --%>
 
     <h2>Products</h2>
-    <button onclick="loadProducts()">Refresh</button>
+    <%-- <button onclick="loadProducts()">Refresh</button> --%>
 
     <div class="product-list" id="products"></div>
   </div>

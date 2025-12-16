@@ -132,5 +132,6 @@
     <script src="../js/logout.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/select.js"></script>
+    <script src="./page/Settings/js/path.js"></script>
   </body>
 </html>
