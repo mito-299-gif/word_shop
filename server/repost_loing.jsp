@@ -1,59 +1,68 @@
 <%@ page import="java.sql.*" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="start.jsp" %>
 
-
 <%
-   if (request.getParameter("logout") != null) {
-       session.invalidate();
-       response.sendRedirect("../index.jsp");
-       return;
-   }
 
-   String userUsername = request.getParameter("username1");
-   String userPassword = request.getParameter("password");
+    if (request.getParameter("logout") != null) {
+        session.invalidate();
+        response.sendRedirect("../index.jsp");
+        return;
+    }
 
-      
-   try {
-      
-       String sql_user = "SELECT * FROM users WHERE (username = ? AND password = ?) OR (Email = ? AND password = ?) OR (Tel = ? AND password = ?)";
-       PreparedStatement stmt = conn.prepareStatement(sql_user);
-       stmt.setString(1, userUsername);
-       stmt.setString(2, userPassword);
-       stmt.setString(3, userUsername);
-       stmt.setString(4, userPassword);
-       stmt.setString(5, userUsername);
-       stmt.setString(6, userPassword);
-       ResultSet rs = stmt.executeQuery();
 
-       String sql_admin = "SELECT * FROM admin WHERE username = ? AND password = ? ";
-       PreparedStatement stmt_admin = conn.prepareStatement(sql_admin);
-       stmt_admin.setString(1, userUsername);
-       stmt_admin.setString(2, userPassword);
-       ResultSet rs_admin = stmt_admin.executeQuery();
+    String username = request.getParameter("username1");
+    String password = request.getParameter("password");
 
-       if (rs.next()) {
-           String name = rs.getString("name");
-           session.setAttribute("name", name);
-           session.setAttribute("password", userPassword);
-           session.setAttribute("username", userUsername);
-           response.sendRedirect("../User/index.jsp");
+    if (username == null || password == null) {
+        response.sendRedirect("../index.jsp");
+        return;
+    }
 
-       } else if (rs_admin.next()) {
-           session.setAttribute("username", userUsername);
-           session.setAttribute("password", userPassword);
-           response.sendRedirect("../Admin/index.jsp");
-       } else {
-           session.setAttribute("errorMessage", "Invalid username or password.");
-           response.sendRedirect("../index.jsp");
-       }
+    try {
 
-       rs.close();
-       stmt.close();
-       rs_admin.close();
-       stmt_admin.close();
-       conn.close();
+        String sql = "SELECT * "
+                   + "FROM admin "
+                   + "LEFT JOIN admin_user ON admin.id_Admin = admin_user.id_Admin "
+                   + "LEFT JOIN admin_user_password ON admin_user.id_Admin_User = admin_user_password.id_admin_User "
+                   + "WHERE ( (admin_user.Email = ? AND admin_user_password.Password = ?) "
+                   + "     OR (admin_user_password.Number_Tel = ? AND admin_user_password.Password = ?) )";
 
-   } catch (Exception e) {
-       out.println("Error: " + e.getMessage());
-   }
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ps.setString(3, username);
+        ps.setString(4, password);
+
+        ResultSet rs = ps.executeQuery();
+
+  
+        if (rs.next()) {
+            String role = rs.getString("Admin_User"); 
+
+            session.setAttribute("username", username);
+            session.setAttribute("password", password);
+            session.setAttribute("name", rs.getString("Name"));
+            session.setAttribute("role", role);
+
+            if ("Admin".equalsIgnoreCase(role)) {
+                response.sendRedirect("../Admin/index.jsp");
+            } else if ("User".equalsIgnoreCase(role)) {
+                response.sendRedirect("../User/index.jsp");
+            } else {
+                session.setAttribute("errorMessage", "no user");
+                response.sendRedirect("../index.jsp");
+            }
+        } else {
+            session.setAttribute("errorMessage", "user not found");
+            response.sendRedirect("../index.jsp");
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+
+    } catch (Exception e) {
+        out.println("ERROR : " + e.getMessage());
+    }
 %>

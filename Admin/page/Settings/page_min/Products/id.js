@@ -21,6 +21,8 @@ async function loadProducts() {
           : '<div class="product-image-placeholder">No Image</div>') +
         `<div class="product-info">
           <h3 class="product-name">${p.name}</h3>
+     
+
           <div class="product-actions">
               <button onclick="window.location.href='edit.html?id=${p.id}'">Edit</button>
             <button class="delete-btn" onclick="deleteProduct(${p.id})">Delete</button>

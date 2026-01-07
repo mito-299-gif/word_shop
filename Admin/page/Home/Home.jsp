@@ -123,7 +123,7 @@
 
 <div class="box_too_box">
   <div class="box1">
-<form id="productForm">
+<%-- <form id="productForm">
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" required /><br /><br />
 
@@ -146,7 +146,7 @@
 </form>
 
 
-    <h2>Products</h2>
+    <h2>Products</h2> --%>
     <%-- <button onclick="loadProducts()">Refresh</button> --%>
 
     <div class="product-list" id="products"></div>

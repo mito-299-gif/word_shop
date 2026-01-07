@@ -21,13 +21,12 @@ async function loadProducts() {
           : '<div class="product-image-placeholder">No Image</div>') +
         `<div class="product-info">
           <h3 class="product-name">${p.name}</h3>
+          <h3 class="product-price">$${p.price}</h3>
           <div class="product-actions">
             <button class="edit-btn" onclick="editProduct(${
               p.id
-            }, '${p.name.replace(/'/g, "\\'")}')">Edit</button>
-            <button class="delete-btn" onclick="deleteProduct(${
-              p.id
-            })">Delete</button>
+            }, '${p.name.replace(/'/g, "\\'")}')">app</button>
+          
           </div>
         </div>`;
       productsDiv.appendChild(div);
